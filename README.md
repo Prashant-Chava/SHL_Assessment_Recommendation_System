@@ -1,67 +1,97 @@
-# SHL Assessment Recommendation System
+#  SHL Assessment Recommendation System
 
-This project is an AI-powered recommendation system built to suggest the most relevant SHL assessments based on user queries, job descriptions, or unstructured input data. It combines NLP techniques and Large Language Models (LLMs) to provide accurate, efficient, and context-aware results through an intuitive frontend interface.
+An AI-powered recommendation system designed to suggest the most relevant SHL assessments based on user queries, job descriptions, or unstructured input data.  
+The system combines **Natural Language Processing (NLP)** techniques and **Large Language Models (LLMs)** to deliver accurate and context-aware recommendations through an interactive frontend.
 
-Try it out @ https://shlassessmentrecommendationsystem.streamlit.app [Example Test Cases given below]
+---
 
-## Features
+##  Features
 
-- Recommends SHL assessments based on:
+- **Assessment Recommendations** based on:
   - Job descriptions
   - Unstructured URLs or text input
   - Custom user queries
-- NLP-based semantic similarity matching using Sentence-BERT
-- Contextual feature extraction and filtering using Gemini 1.5 Pro (LLM)
-- Ranking and scoring using cosine similarity
-- Top recommendations output with relevance filtering
-- Streamlit-based frontend for an interactive user experience
 
-## Tech Stack
+- **NLP-Powered Matching**
+  - Semantic similarity using **Sentence-BERT embeddings**
+  - Context extraction and filtering with **Gemini 1.5 Pro (LLM)**
 
-- **Natural Language Processing**:
-  - Sentence-BERT for creating embeddings of assessments and queries
-  - Cosine similarity for ranking the most relevant assessments
-- **LLM Integration**:
-  - Gemini 1.5 Pro used to extract structured features (job title, skills, duration, etc.) from unstructured input
-  - Post-processing and filtering of recommendations based on constraints like duration and skill match
-- **Frontend**:
-  - Streamlit application for user-friendly interaction and display of results
+- **Smart Ranking & Scoring**
+  - Cosine similarity-based ranking
+  - Relevance filtering for top recommendations
 
-## How It Works
+- **User-Friendly Frontend**
+  - Built with **Streamlit** for easy interaction
 
-1. **Data Preparation**:
-   - A mock dataset of 50 SHL-like assessments is used, each containing:
-     - Assessment name, URL, duration, test type, skills, description, remote support, and adaptive/IRT support.
-   - A "combined" column is created by concatenating all columns into a single string for embedding.
+---
 
-2. **NLP Embedding and Retrieval**:
-   - Sentence-BERT is used to convert both dataset entries and input queries into vector embeddings.
-   - Cosine similarity is calculated to identify the top matching assessments.
+##  Tech Stack
 
-3. **LLM Enhancement (Gemini 1.5 Pro)**:
-   - Accepts job descriptions, URLs, or unstructured queries.
-   - Extracts meaningful structured features like job role, required skills, expected duration, etc.
-   - This information is used to generate more accurate embeddings.
-   - After retrieving top candidates, Gemini re-filters based on constraints and relevance.
+| Component             | Tool / Library                 |
+|-----------------------|--------------------------------|
+| NLP Embeddings        | Sentence-BERT (`all-MiniLM-L6-v2`) |
+| LLM Integration       | Gemini 1.5 Pro (Google Generative AI) |
+| Frontend Interface    | Streamlit                      |
+| Backend API           | FastAPI                        |
+| Data Manipulation     | Pandas                         |
+| Similarity Scoring    | Cosine Similarity (PyTorch)    |
 
-4. **Evaluation**:
-   - Performance is evaluated using metrics such as Recall@5 and MAP@5.
-   - The hybrid (NLP + LLM) approach outperforms the pure NLP baseline in both metrics.
+---
 
-5. **Streamlit Interface**:
-   - Users can input queries directly in a web interface.
-   - Receives and displays the top recommended assessments along with their details.
+##  How it Works
 
-## Performance
-- NLP Model - Recall@5 = 0.85 and MAP@5 = 0.71
-- NLP + LLM Model - Recall@5 = 1.0 and MAP@5 = 1.0
-  
-## Test Cases 
-- I am hiring for Java developers who can also collaborate effectively with my business teams. Looking
-for an assessment(s) that can be completed in 40 minutes.
-- Looking to hire mid-level professionals who are proficient in Python, SQL and Java Script. Need an
-assessment package that can test all skills with max duration of 60 minutes.
-- I am hiring for an analyst and wants applications to screen using Cognitive and personality tests,
-what options are available within 45 mins.
-- https://www.linkedin.com/jobs/view/research-engineer-ai-at-shl-4194768899/?originalSubdomain=in
-- Want to assess communication and teamwork skills in under 30 minutes.
+1. **Input Handling**  
+   The user enters a query, JD text, or JD URL.
+
+2. **Feature Extraction (LLM)**  
+   The system uses **Gemini 1.5 Pro** to extract structured features such as job role, skills, duration, etc.
+
+3. **Semantic Search (NLP)**  
+   Both the user query and catalog assessments are embedded using **Sentence-BERT**.  
+   Cosine similarity is computed to find top-matching assessments.
+
+4. **Intelligent Filtering (LLM)**  
+   Gemini further filters recommendations based on user constraints (e.g., duration, required skills).
+
+5. **Recommendation Output**  
+   The top relevant assessments are displayed via the Streamlit interface.
+
+---
+
+##  Performance Metrics
+
+| Model Type          | Recall@5 | MAP@5 |
+|---------------------|----------|-------|
+| NLP Model Only      | 0.85     | 0.71  |
+| NLP + LLM Hybrid    | 1.00     | 1.00  |
+
+---
+
+##  Example Test Cases
+
+> These sample queries demonstrate how our system delivers precise recommendations:
+
+- *"Hiring Java developers with collaboration skills, assessment duration under 40 mins"*
+- *"Looking for mid-level Python, SQL, JavaScript assessments within 60 mins"*
+- *"Need cognitive and personality tests for analyst roles, max 45 mins"*
+- *[LinkedIn JD URL: SHL Research Engineer AI Job Description](https://www.linkedin.com/jobs/view/research-engineer-ai-at-shl-4194768899/?originalSubdomain=in)*
+
+---
+
+##  Data Source
+
+The SHL assessment catalog data was collected from the official SHL product catalog:  
+[SHL Product Catalog](https://www.shl.com/solutions/products/product-catalog/)
+
+---
+
+##  Authors
+
+> This system was built as part of the SHL Research Internship take-home assessment.
+
+---
+
+##  Final Notes
+
+This project showcases the power of combining **semantic search** and **LLM-based understanding** to make hiring assessments selection smarter and faster.
+
